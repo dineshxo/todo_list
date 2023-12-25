@@ -37,7 +37,11 @@ class _ToDoListState extends State<ToDoList> {
                 alignment: Alignment.centerRight,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 // Background color when swiping to delete
-                child: const Icon(Icons.delete, color: Colors.white),
+                child: const Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                  size: 30,
+                ),
               ),
             ),
             child: Card(
@@ -59,7 +63,11 @@ class _ToDoListState extends State<ToDoList> {
                   },
                 ),
                 contentPadding: const EdgeInsets.all(8),
-                title: Text(_toDoItem[index][0]),
+                title: Text(
+                  _toDoItem[index][0],
+                  style: const TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           );

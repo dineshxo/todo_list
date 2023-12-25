@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:todo/Screens/components/roundiconbutton.dart';
-import 'package:todo/Screens/components/todolist.dart';
 
-import 'components/welcome_container.dart';
+import 'package:todo/components/roundiconbutton.dart';
+import 'package:todo/components/todolist.dart';
+import 'package:todo/components/create_new_task.dart';
+
+import '../components/welcome_container.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -44,7 +46,11 @@ class _HomeState extends State<Home> {
                   alignment: const FractionalOffset(0.5, 1.0),
                   child: Padding(
                     padding: const EdgeInsets.all(20),
-                    child: RoundIconButton(icon: Icons.add, onPressed: () {}),
+                    child: RoundIconButton(
+                        icon: Icons.add,
+                        onPressed: () {
+                          CreateNewTask().createNewTask(context);
+                        }),
                   ),
                 )
               ]),

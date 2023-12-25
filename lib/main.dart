@@ -14,6 +14,7 @@ class ToDoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const Home(),
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           textTheme: GoogleFonts.ralewayTextTheme(), // textTheme
           fontFamily: GoogleFonts.raleway().fontFamily,
