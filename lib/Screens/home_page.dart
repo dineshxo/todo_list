@@ -58,25 +58,52 @@ class _HomeState extends State<Home> {
                                 return AlertDialog(
                                   title: const Text(
                                     'Add Task',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
                                   ),
                                   content: Column(
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
                                       TextField(
+                                        maxLength: 30,
                                         controller: textController,
+                                        decoration: InputDecoration(
+                                            hintText: 'Enter New Task Name',
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20))),
                                       ),
-                                      RoundIconButtonSmall(
-                                        color: Colors.green,
-                                        icon: Icons.check,
-                                        onPressed: () {
-                                          setState(() {
-                                            widget.toDoList
-                                                .addTask(textController.text);
-                                          });
+                                      Padding(
+                                        padding: const EdgeInsets.all(15.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            RoundIconButtonSmall(
+                                              color: Colors.green,
+                                              icon: Icons.check,
+                                              onPressed: () {
+                                                setState(() {
+                                                  widget.toDoList.addTask(
+                                                      textController.text);
+                                                });
 
-                                          Navigator.pop(context);
-                                        },
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            RoundIconButtonSmall(
+                                              color: Colors.red,
+                                              icon: Icons.close,
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
