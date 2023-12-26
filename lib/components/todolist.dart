@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class ToDoList extends StatefulWidget {
-  ToDoList({super.key});
+  ToDoList({Key? key});
 
   @override
   State<ToDoList> createState() => _ToDoListState();
@@ -16,6 +17,46 @@ class ToDoList extends StatefulWidget {
 ToDoList toDoList = ToDoList();
 
 class _ToDoListState extends State<ToDoList> {
+  @override
+  void initState() {
+    super.initState();
+    _loadToDoList();
+  }
+
+  void Save() {
+    _saveToDoList();
+  }
+
+  Future<void> _loadToDoList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? savedListString = prefs.getString('toDoItem');
+    if (savedListString != null) {
+      setState(() {
+        toDoList.toDoItem = _decodeToDoList(savedListString);
+      });
+    }
+  }
+
+  List<List<dynamic>> _decodeToDoList(String savedListString) {
+    List<List<dynamic>> decodedList = [];
+    List<String> splitList = savedListString.split(';');
+    for (var item in splitList) {
+      List<String> values = item.split(',');
+      decodedList.add([values[0], values[1] == 'true']);
+    }
+    return decodedList;
+  }
+
+  String _encodeToDoList() {
+    return toDoList.toDoItem.map((item) => '${item[0]},${item[1]}').join(';');
+  }
+
+  Future<void> _saveToDoList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String encodedList = _encodeToDoList();
+    await prefs.setString('toDoItem', encodedList);
+  }
+
   @override
   Widget build(BuildContext context) {
     return toDoList.toDoItem.isEmpty
@@ -57,6 +98,7 @@ class _ToDoListState extends State<ToDoList> {
                   setState(() {
                     toDoList.toDoItem
                         .removeAt(index); // Remove the item from the list
+                    _saveToDoList(); // Save after removal
                   });
                 },
                 background: Padding(
@@ -91,6 +133,7 @@ class _ToDoListState extends State<ToDoList> {
                       onChanged: (bool? value) {
                         setState(() {
                           toDoList.toDoItem[index][1] = value ?? false;
+                          _saveToDoList(); // Save after change
                         });
                       },
                     ),
