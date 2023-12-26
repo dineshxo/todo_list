@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class ToDoList extends StatefulWidget {
+  // ignore: use_key_in_widget_constructors
   ToDoList({Key? key});
 
   @override
@@ -23,6 +24,7 @@ class _ToDoListState extends State<ToDoList> {
     _loadToDoList();
   }
 
+  // ignore: non_constant_identifier_names
   void Save() {
     _saveToDoList();
   }
@@ -41,8 +43,11 @@ class _ToDoListState extends State<ToDoList> {
     List<List<dynamic>> decodedList = [];
     List<String> splitList = savedListString.split(';');
     for (var item in splitList) {
-      List<String> values = item.split(',');
-      decodedList.add([values[0], values[1] == 'true']);
+      List<String> values = item.split(','); // Split by comma
+      if (values.length == 2) {
+        // Ensure there are exactly two values
+        decodedList.add([values[0], values[1] == 'true']);
+      }
     }
     return decodedList;
   }

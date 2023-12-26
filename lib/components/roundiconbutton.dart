@@ -20,6 +20,7 @@ class RoundIconButton extends StatelessWidget {
       child: Icon(
         icon,
         size: 30,
+        color: Colors.orange[800],
       ),
     );
   }
