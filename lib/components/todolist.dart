@@ -1,30 +1,37 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ToDoList extends StatefulWidget {
-  const ToDoList({super.key});
+  ToDoList({super.key});
 
   @override
   State<ToDoList> createState() => _ToDoListState();
+  List toDoItem = [
+    ['Code a new App', false],
+    ['Code a new website', false],
+  ];
+
+  void addTask(String text) {
+    toDoItem.add([text, false]);
+  }
 }
 
-List _toDoItem = [
-  ['Code a new App', false],
-  ['Code a new website', false],
-];
+ToDoList toDoList = ToDoList();
 
 class _ToDoListState extends State<ToDoList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
         scrollDirection: Axis.vertical,
-        itemCount: _toDoItem.length,
+        itemCount: toDoList.toDoItem.length,
         itemBuilder: (BuildContext context, int index) {
           return Dismissible(
-            key: Key(_toDoItem[index][0]),
+            key: Key(toDoList.toDoItem[index][0]),
             direction: DismissDirection.endToStart, // Dismiss from end to start
             onDismissed: (direction) {
               setState(() {
-                _toDoItem.removeAt(index); // Remove the item from the list
+                toDoList.toDoItem
+                    .removeAt(index); // Remove the item from the list
               });
             },
             background: Padding(
@@ -51,20 +58,20 @@ class _ToDoListState extends State<ToDoList> {
               child: ListTile(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
-                tileColor: _toDoItem[index][1]
+                tileColor: toDoList.toDoItem[index][1]
                     ? const Color.fromARGB(255, 85, 203, 89)
                     : const Color.fromARGB(31, 255, 255, 255),
                 leading: Checkbox(
-                  value: _toDoItem[index][1],
+                  value: toDoList.toDoItem[index][1],
                   onChanged: (bool? value) {
                     setState(() {
-                      _toDoItem[index][1] = value ?? false;
+                      toDoList.toDoItem[index][1] = value ?? false;
                     });
                   },
                 ),
                 contentPadding: const EdgeInsets.all(8),
                 title: Text(
-                  _toDoItem[index][0],
+                  toDoList.toDoItem[index][0],
                   style: const TextStyle(
                       fontSize: 15, fontWeight: FontWeight.bold),
                 ),
