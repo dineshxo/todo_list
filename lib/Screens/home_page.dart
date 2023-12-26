@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:todo/Screens/components/roundiconbutton.dart';
-import 'package:todo/Screens/components/todolist.dart';
 
-import 'components/welcome_container.dart';
+import 'package:todo/components/roundiconbutton.dart';
+import 'package:todo/components/todolist.dart';
+
+import '../components/buttonsmall.dart';
+import '../components/welcome_container.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({super.key, required this.toDoList});
+  final ToDoList toDoList;
 
   @override
   State<Home> createState() => _HomeState();
@@ -38,13 +41,48 @@ class _HomeState extends State<Home> {
                         topRight: Radius.circular(30),
                       ),
                       color: Colors.amber),
-                  child: const ToDoList(),
+                  child: ToDoList(),
                 ),
                 Align(
                   alignment: const FractionalOffset(0.5, 1.0),
                   child: Padding(
                     padding: const EdgeInsets.all(20),
-                    child: RoundIconButton(icon: Icons.add, onPressed: () {}),
+                    child: RoundIconButton(
+                        icon: Icons.add,
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                TextEditingController textController =
+                                    TextEditingController();
+                                return AlertDialog(
+                                  title: const Text(
+                                    'Add Task',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  content: Column(
+                                    children: [
+                                      TextField(
+                                        controller: textController,
+                                      ),
+                                      RoundIconButtonSmall(
+                                        color: Colors.green,
+                                        icon: Icons.check,
+                                        onPressed: () {
+                                          setState(() {
+                                            widget.toDoList
+                                                .addTask(textController.text);
+                                          });
+
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              });
+                        }),
                   ),
                 )
               ]),
