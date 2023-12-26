@@ -6,10 +6,7 @@ class ToDoList extends StatefulWidget {
 
   @override
   State<ToDoList> createState() => _ToDoListState();
-  List toDoItem = [
-    ['Code a new App', false],
-    ['Code a new website', false],
-  ];
+  List toDoItem = [];
 
   void addTask(String text) {
     toDoItem.add([text, false]);
