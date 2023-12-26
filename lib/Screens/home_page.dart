@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       TextField(
-                                        maxLength: 30,
+                                        maxLength: 40,
                                         controller: textController,
                                         decoration: InputDecoration(
                                             hintText: 'Enter New Task Name',
