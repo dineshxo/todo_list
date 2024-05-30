@@ -4,7 +4,7 @@ import 'package:todo/components/todolist.dart';
 import 'Screens/home_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:device_preview/device_preview.dart';
+// import 'package:device_preview/device_preview.dart';
 
 // void main() => runApp(
 //       DevicePreview(
